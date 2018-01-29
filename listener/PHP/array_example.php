@@ -9,4 +9,11 @@
         "education" => array(2013,2010) 
     );
     echo 'arr["name"] = ' . $arr['name'] . '               arr["education"][1] = ' . $arr['education'][1];
+    print_r($arr); //печать массива
+
+    $arr2 = array();
+    if(empty($arr2))
+        echo 'was empty' . "\n";
+    $arr2[] = "Hi!";
+    print_r($arr2);
 ?>
