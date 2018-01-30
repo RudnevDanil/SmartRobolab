@@ -366,10 +366,11 @@ int switch_all_on()
 
 int main()
 {
-	
+	system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");
 	rele_when_connect();
 	while(true)
 	{
+        //start chrome localhost
 		std::cout << "---------------\nnom_but = ";
 		int nom_but;
 		std::cin >> nom_but;
