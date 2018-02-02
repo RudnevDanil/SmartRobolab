@@ -37,7 +37,7 @@
             $text_to_file = $text_to_file . $result_query_new_records['id'] . '_';
             if(strlen($result_query_new_records['nom_but']) < 2)
                 $text_to_file = $text_to_file . '0';
-            $text_to_file = $text_to_file . $result_query_new_records['nom_but'] . "\n";
+            $text_to_file = $text_to_file . $result_query_new_records['nom_but'] . '_' . "\n";
             $last_id = $result_query_new_records['id'];
         }
             

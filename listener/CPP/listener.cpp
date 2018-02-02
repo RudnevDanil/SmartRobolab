@@ -1,5 +1,6 @@
 // g++ -o listener listener.cpp
 #include <windows.h>
+#include <unistd.h>
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +13,7 @@ char *port_name_arduino = "\\\\.\\COM6";
 char *port_name_rele = "\\\\.\\COM3";
 char *commands_stack_file = "..\\PHP\\commands_stack";
 int amount_of_readed_records = 0;
+int SLEEP_TIME = 2;
 
 SerialPort arduino(port_name_arduino);
 //String for getting the output from arduino
@@ -379,109 +381,100 @@ record find_last_unreaded_record()
     byf.number = 0;
     
     FILE *mf;
-    //?????? ? ??????? ????? ???????? ????????? ?? ?????? ?????? ??????
-    char str[8];
+    char str[13];
     do
     {
         mf=fopen ("..\\PHP\\commands_stack","r+");
     }while(mf == NULL);
- 
-    //????????? ??????? ????? ?? ??????? ?????
+    
     fseek(mf,0,SEEK_END);
-    if(ftell(mf) > amount_of_readed_records * 8)
+    if(ftell(mf) > amount_of_readed_records * (9 + 1))
     {
-        //????????? ??????? ???????
-        fseek (mf,amount_of_readed_records * 8,SEEK_SET);
-
-        //?????? ?????? ?? ?????
+        fseek (mf, amount_of_readed_records * (9 + 1),SEEK_SET);
+        
         if (fgets (str, sizeof (str), mf)==NULL)
-           printf ("ERROR ?????? ?? ???????\n");
+           printf ("ERROR of getting string\n");
         else
         {
             byf.id = ((int)str[1]-48)*1000+((int)str[2]-48)*100+((int)str[3]-48)*10+((int)str[4]-48);
             byf.number = ((int)str[6]-48)*10+((int)str[7]-48);
         }     
-        // ???????? ?????
         if ( fclose (mf) == EOF) printf ("CLOSING ERROR\n");
-    }  
-    
+    }    
     return byf;
 }
 
 int main()
 {
-	//system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");
 	rele_when_connect();
 	while(true)
 	{
-        //start chrome localhost
-		std::cout << "---------------\nnom_but = ";
-		int nom_but;
-		std::cin >> nom_but;
-		switch(nom_but)
-		{
-			case 1:  // YES CHECK
-				std::cout << "switch_1 ..." << ((switch_1() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 2:  // YES CHECK
-				std::cout << "switch_2 ..." << ((switch_2() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 3:  // YES CHECK
-				std::cout << "switch_3 ..." << ((switch_3() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 4:  // YES CHECK
-				std::cout << "switch_4 ..." << ((switch_4() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 5:  // YES CHECK
-				std::cout << "switch_5 ..." << ((switch_5() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 6:  // YES CHECK
-				std::cout << "switch_6 ..." << ((switch_6() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 7:  // YES CHECK
-				std::cout << "switch_7 ..." << ((switch_7() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 8:  // YES CHECK
-				std::cout << "switch_8 ..." << ((switch_8() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 9:  // YES CHECK
-				std::cout << "switch_all ..." << ((switch_all() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 10:  // YES CHECK
-				std::cout << "switch_all_off ..." << ((switch_all_off() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 11:  // YES CHECK
-				std::cout << "switch_all_on ..." << ((switch_all_on() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 12:  // YES CHECK
-				std::cout << "rele_when_connect ..." << ((rele_when_connect() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 13:  // YES CHECK
-				std::cout << "arduino_move_left_5 ..." << ((arduino_move_left_5() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 14:  // YES CHECK
-				std::cout << "arduino_move_right_5 ..." << ((arduino_move_right_5() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 15:  // YES CHECK
-				std::cout << "arduino_move_left_20 ..." << ((arduino_move_left_20() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-			case 16:  // YES CHECK
-				std::cout << "arduino_move_right_20 ..." << ((arduino_move_right_20() == 0)?"SUCCESS\n":"FAILURE\n");    
-				break;
-            case 17:
-				system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");
-                break;
-            case 18:
-                record a;
-                a = find_last_unreaded_record();
-                if(a.id == 0)
-                    std::cout << " nothing new " << std::endl;
-                else
-                    std::cout << "id = " << a.id << "    number = " << a.number << std::endl;
-				break;
-			 default:  
-				std::cout << "UNKNOWN COMMAND !!!\n";  
-		}
+        std::cout << "*********************************************\n";
+        sleep(SLEEP_TIME);
+        system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");
+        record a = find_last_unreaded_record();
+        if(a.id == 0)
+        {
+            std::cout << " nothing new " << std::endl;
+        }            
+        else
+        {
+            ++amount_of_readed_records;
+            std::cout << "id = " << a.id << "    number = " << a.number << std::endl;
+            switch(a.number)
+            {
+                case 1:  // YES CHECK
+                    std::cout << "switch_1 ..." << ((switch_1() == 0)?"SUCCESS\n":"FAILURE\n"); 
+                    break;
+                case 2:  // YES CHECK
+                    std::cout << "switch_2 ..." << ((switch_2() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 3:  // YES CHECK
+                    std::cout << "switch_3 ..." << ((switch_3() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 4:  // YES CHECK
+                    std::cout << "switch_4 ..." << ((switch_4() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 5:  // YES CHECK
+                    std::cout << "switch_5 ..." << ((switch_5() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 6:  // YES CHECK
+                    std::cout << "switch_6 ..." << ((switch_6() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 7:  // YES CHECK
+                    std::cout << "switch_7 ..." << ((switch_7() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 8:  // YES CHECK
+                    std::cout << "switch_8 ..." << ((switch_8() == 0)?"SUCCESS\n":"FAILURE\n");   
+                    break;
+                case 9:  // YES CHECK
+                    std::cout << "switch_all ..." << ((switch_all() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 10:  // YES CHECK
+                    std::cout << "switch_all_off ..." << ((switch_all_off() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 11:  // YES CHECK
+                    std::cout << "switch_all_on ..." << ((switch_all_on() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 12:  // YES CHECK
+                    std::cout << "rele_when_connect ..." << ((rele_when_connect() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 13:  // YES CHECK
+                    std::cout << "arduino_move_left_5 ..." << ((arduino_move_left_5() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 14:  // YES CHECK
+                    std::cout << "arduino_move_right_5 ..." << ((arduino_move_right_5() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 15:  // YES CHECK
+                    std::cout << "arduino_move_left_20 ..." << ((arduino_move_left_20() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                case 16:  // YES CHECK
+                    std::cout << "arduino_move_right_20 ..." << ((arduino_move_right_20() == 0)?"SUCCESS\n":"FAILURE\n");    
+                    break;
+                 default:  
+                    std::cout << "UNKNOWN COMMAND !!!\n";  
+            }
+        }        
 	}	
     return 0;
 }
