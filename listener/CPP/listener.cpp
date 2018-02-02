@@ -10,6 +10,8 @@
 replace the following com port*/
 char *port_name_arduino = "\\\\.\\COM6";
 char *port_name_rele = "\\\\.\\COM3";
+char *commands_stack_file = "..\\PHP\\commands_stack";
+int amount_of_readed_records = 0;
 
 SerialPort arduino(port_name_arduino);
 //String for getting the output from arduino
@@ -364,9 +366,51 @@ int switch_all_on()
 	return 0;
 }
 
+struct record
+{
+    int id;
+    int number;
+};
+
+record find_last_unreaded_record()
+{
+    record byf;
+    byf.id = 0;
+    byf.number = 0;
+    
+    FILE *mf;
+    //?????? ? ??????? ????? ???????? ????????? ?? ?????? ?????? ??????
+    char str[8];
+    do
+    {
+        mf=fopen ("..\\PHP\\commands_stack","r+");
+    }while(mf == NULL);
+ 
+    //????????? ??????? ????? ?? ??????? ?????
+    fseek(mf,0,SEEK_END);
+    if(ftell(mf) > amount_of_readed_records * 8)
+    {
+        //????????? ??????? ???????
+        fseek (mf,amount_of_readed_records * 8,SEEK_SET);
+
+        //?????? ?????? ?? ?????
+        if (fgets (str, sizeof (str), mf)==NULL)
+           printf ("ERROR ?????? ?? ???????\n");
+        else
+        {
+            byf.id = ((int)str[1]-48)*1000+((int)str[2]-48)*100+((int)str[3]-48)*10+((int)str[4]-48);
+            byf.number = ((int)str[6]-48)*10+((int)str[7]-48);
+        }     
+        // ???????? ?????
+        if ( fclose (mf) == EOF) printf ("CLOSING ERROR\n");
+    }  
+    
+    return byf;
+}
+
 int main()
 {
-	system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");//????? ??? ?????? ?????????? ??? ? ??? ?????? ??????????? ???????? ?????????
+	//system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");
 	rele_when_connect();
 	while(true)
 	{
@@ -423,6 +467,17 @@ int main()
 				break;
 			case 16:  // YES CHECK
 				std::cout << "arduino_move_right_20 ..." << ((arduino_move_right_20() == 0)?"SUCCESS\n":"FAILURE\n");    
+				break;
+            case 17:
+				system("start chrome smartrobolab\\listener\\PHP\\commands_stack_writer.php");
+                break;
+            case 18:
+                record a;
+                a = find_last_unreaded_record();
+                if(a.id == 0)
+                    std::cout << " nothing new " << std::endl;
+                else
+                    std::cout << "id = " << a.id << "    number = " << a.number << std::endl;
 				break;
 			 default:  
 				std::cout << "UNKNOWN COMMAND !!!\n";  
