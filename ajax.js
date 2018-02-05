@@ -1,40 +1,5 @@
 $( document ).ready(function() 
 {
-    /*$("#MOVE").click(
-		function()
-		{
-			sendAjaxForm('send_button', 'send_button.php', 1);
-			return false; 
-		}
-	);
-	$("#LEFT").click(
-		function()
-		{
-			sendAjaxForm('send_button', 'send_button.php', 2);
-			return false; 
-		}
-	);
-    $("#STOP").click(
-		function()
-		{
-			sendAjaxForm('send_button', 'send_button.php', 3);
-			return false; 
-		}
-	);
-    $("#RIGHT").click(
-		function()
-		{
-			sendAjaxForm('send_button', 'send_button.php', 4);
-			return false; 
-		}
-	);
-    $("#DOUN").click(
-		function()
-		{
-			sendAjaxForm('send_button', 'send_button.php', 5);
-			return false; 
-		}
-	);*/
     $("#SWITCH_1").click(
 		function()
 		{
@@ -112,17 +77,38 @@ $( document ).ready(function()
 			return false; 
 		}
 	);
-    $("#WHEN_CONNECT").click(
+    $("#REBOOT_RELE").click(
 		function()
 		{
 			sendAjaxForm('send_button', 'send_button.php', 12);
 			return false; 
 		}
 	);
-    $("#INIT_ARDUINO").click(
+    $("#MOVE_LEFT_5").click(
 		function()
 		{
 			sendAjaxForm('send_button', 'send_button.php', 13);
+			return false; 
+		}
+	);
+    $("#MOVE_RIGHT_5").click(
+		function()
+		{
+			sendAjaxForm('send_button', 'send_button.php', 14);
+			return false; 
+		}
+	);
+    $("#MOVE_LEFT_20").click(
+		function()
+		{
+			sendAjaxForm('send_button', 'send_button.php', 15);
+			return false; 
+		}
+	);
+    $("#MOVE_RIGHT_20").click(
+		function()
+		{
+			sendAjaxForm('send_button', 'send_button.php', 16);
 			return false; 
 		}
 	);

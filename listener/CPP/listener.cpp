@@ -406,7 +406,10 @@ record find_last_unreaded_record()
 
 int main()
 {
+	int iii = 0;
 	rele_when_connect();
+	std::cout << "Update time is ";
+	std::cin >> SLEEP_TIME;
 	while(true)
 	{
         std::cout << "*********************************************\n";
@@ -415,7 +418,7 @@ int main()
         record a = find_last_unreaded_record();
         if(a.id == 0)
         {
-            std::cout << " nothing new " << std::endl;
+            std::cout << " nothing new " << iii++ <<std::endl;
         }            
         else
         {

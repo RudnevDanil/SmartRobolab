@@ -1,7 +1,7 @@
 <?php
     //Запускаем сессию
     session_start();
-    switch ($_POST["nom_last_but"]) 
+    /*switch ($_POST["nom_last_but"]) 
     {
     case '1':
       exec('start C:\\OSPanel\\domains\\smartrobolab\\commands\\switch_1.exe ');
@@ -42,7 +42,7 @@
     case '13':
       exec('start C:\\OSPanel\\domains\\smartrobolab\\commands\\init_arduino.exe ');
       break;
-    }
+    }*/
     
     //exec('start C:\\Windows\\notepad.exe ');
     //Добавляем файл подключения к БД

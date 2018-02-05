@@ -1,28 +1,6 @@
 <div id="buttons" style="text-align: center;">
-    <form method="post" id="send_button" action="" >
-    <!--<table>
-        
-        <tr>
-            <td colspan="3"><input type="button" id="MOVE" value="MOVE" /></td>
-        </tr>
-        <tr>
-            <td>
-                <input type="button" id="LEFT" value="LEFT" />
-            </td>
-            <td>
-                <input type="button" id="STOP" value="STOP" />
-            </td>
-            <td>
-                <input type="button" id="RIGHT" value="RIGHT" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3"><input type="button" id="DOUN" value="DOUN" /></td>
-        </tr>
-        
-    </table>-->  
+    <form method="post" id="send_button" action="" > 
         <?php 
-        //if($_SESSION['email'] == 'danil.160398@yandex.ru') //для конкретно меня
         if(!(!isset($_SESSION['email']) && !isset($_SESSION['password'])))//для авторизованных
         { ?>
         <input type="button" id="SWITCH_1" value="SWITCH_1" />
@@ -36,8 +14,11 @@
         <input type="button" id="SWITCH_ALL" value="SWITCH_ALL" />
         <input type="button" id="SWITCH_ALL_OFF" value="SWITCH_ALL_OFF" />
         <input type="button" id="SWITCH_ALL_ON" value="SWITCH_ALL_ON" />
-        <input type="button" id="WHEN_CONNECT" value="WHEN_CONNECT" />
-        <input type="button" id="INIT_ARDUINO" value="INIT_ARDUINO" />
+        <input type="button" id="REBOOT_RELE" value="REBOOT_RELE" />
+        <input type="button" id="MOVE_LEFT_5" value="MOVE_LEFT_5" />
+        <input type="button" id="MOVE_RIGHT_5" value="MOVE_RIGHT_5" />
+        <input type="button" id="MOVE_LEFT_20" value="MOVE_LEFT_20" />
+        <input type="button" id="MOVE_RIGHT_20" value="MOVE_RIGHT_20" />
         <?php 
         }
         else
@@ -49,15 +30,7 @@
         <?php
         }
         ?>
-        
-        
-        
-        
-        
-        
-    </form>
-    
-    
+     </form>
     <!-- Для добавления новых кнопок :
             1) добавить кнопку с уникальным id в форму
             2) в файле ajax.js внести изменения
