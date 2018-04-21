@@ -1,0 +1,17 @@
+-------------------- ACCESS --------------------
+$server = "localhost";
+$username = "h96046yr__base";
+$password = "HeL1UVYS";
+$database = "h96046yr__base";
+-------------------- STRUCTURE --------------------
+---------- list_of_url
+id              int(11)     AI
+user_login      varchar(255)
+url_1           varchar(255)
+url_2           varchar(255)
+last_add_date   timestamp           2018-01-01 01:01:01
+---------- users_list
+id              int(11)     AI
+login           varchar(255)
+email           varchar(255)
+password        varchar(255)

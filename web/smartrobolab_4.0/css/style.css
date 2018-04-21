@@ -1,0 +1,156 @@
+body{
+    background-image: url(../images/background.jpg);
+}
+
+.other_pages{
+    text-align:center;
+}
+
+.border{
+    text-align:center;
+    margin:30px;
+    border: 5px solid black;
+    border-radius:30px;
+    padding: 20px;
+}
+
+.some_information
+{
+    font-size: 40px;
+    font-weight: 900;
+    margin: 30px;
+    padding: 20px;
+}
+
+.about_us{
+    text-align:left;
+    text-indent:5%;
+}
+
+.some_reference
+{
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    display: inline-block;
+    font-weight:900;
+}
+
+#logo , #proj_name_line, #auth_block{
+    display: inline-block;
+}
+
+#videos{
+    padding-top: 10px;
+    height:40%;
+    
+}
+#video_1 , #video_2{
+    display: inline-block;
+    height:100%;
+    width:40%;
+}
+
+#video_2{
+    padding-left: 15px;
+}
+
+#video_1{
+    padding-right: 15px;
+}
+
+iframe{
+    width:100%;
+    height:100%;
+    /*min-height: 500px;*/
+}
+
+
+#head, #main_content, #foot{
+    text-align:center;
+    margin:30px;
+    border: 5px solid black;
+    border-radius:30px;
+    padding: 20px;
+}
+
+#foot{
+    font-weight: 900;
+    font-size: 150%;
+}
+
+#logo_img, #logo_link{
+    height:70px;
+    width:70px;
+}
+
+#logo_link{
+    padding-right: 5%;
+}
+
+#auth_block{
+    padding-left: 5%;;
+}
+
+.auth_buttons{
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    font-weight:900;
+}
+
+a{
+    color:black;
+     text-decoration: none;
+}
+
+#proj_name_line{
+    font-size:630%;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.control_block{
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    /*display: inline-block;*/
+    font-weight:900;
+}
+
+.form_button{
+    font-size: 100%;
+}
+
+input{
+    margin: 1px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    display: inline-block;
+}
+
+.button_img{
+    height: 40px;
+    width: 104px;
+}
+
+button{
+    background:transparent;
+    padding:0px;
+    border: none;
+    display: inline-block;
+}
+
+.buttons_block{
+    width: 260px;
+    display: inline-block;
+}
+
+.camera_block{
+    position: relative;
+    bottom: 80px;
+}

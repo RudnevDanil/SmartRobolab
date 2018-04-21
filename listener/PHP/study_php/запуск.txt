@@ -1,2 +1,0 @@
-cd C:\Users\Админ\Documents\GitHub\SmartRobolab\SmartRobolab\listener\PHP
-C:\OSPanel\modules\php\PHP-5.2\php.exe hi.php
